@@ -25,7 +25,12 @@
           "200": {
             "description": "Return success message when sign up successfully",
             "schema": {
-              "$ref": "#/definitions/Success"
+              "type": "object",
+              "properties": {
+                "userName": {
+                  "type": "string"
+                }
+              }
             }
           },
           "default": {
@@ -451,6 +456,10 @@
         "last_name": {
           "type": "string",
           "description": "Last name of the Uber user."
+        },
+        "userName": {
+          "type": "string",
+          "description": "user name of the Uber user. It should be the only."
         },
         "email": {
           "type": "string",
