@@ -1,0 +1,496 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Uber API",
+    "description": "Move your app forward with the Uber API",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/v1",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/signup": {
+      "post": {
+        "summary": "Sign Up",
+        "description": "The first name and last name is required. Username and email should be the only one in the application. Password should more than 8 letters and less than 16 letters.",
+        "tags": [
+          "Sign Up"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return success message when sign up successfully",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/signin": {
+      "get": {
+        "summary": "Sign In",
+        "description": "The User Profile endpoint returns information about the Uber user that has authorized with the application.",
+        "parameters": [
+          {
+            "name": "userName/email",
+            "in": "query",
+            "description": "UserName or email is required.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "Password is required.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Sign In"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return user information when sign in successfully",
+            "schema": {
+              "$ref": "#/definitions/UserProfile"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/blog": {
+      "post": {
+        "summary": "Publish a new personal blog",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Blog title is required.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "description": "Blog content is required.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the comment list of the blog",
+            "schema": {
+              "$ref": "#/definitions/HomePageBlogList"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/blog/:blogId": {
+      "get": {
+        "summary": "Get a blog",
+        "tags": [
+          "Blog Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the comment list of the blog",
+            "schema": {
+              "$ref": "#/definitions/HomePageBlog"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/homepage/blogs": {
+      "get": {
+        "summary": "All blogs",
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return success message when sign up successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HomePageBlogList"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/homepage/personalblogs": {
+      "get": {
+        "summary": "Personal blogs",
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return success message when sign up successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/HomePageBlogList"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "homepage/personalblogs/:blogId": {
+      "delete": {
+        "summary": "Delete personal blog",
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return success message when delete successfully",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "homepage/blogs/:blogId/likes": {
+      "put": {
+        "summary": "Like someone' s blog",
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return success message when likes successfully",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "homepage/blogs/:blogId/comments": {
+      "get": {
+        "summary": "Get the comments of the blog",
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the comment list of the blog",
+            "schema": {
+              "$ref": "#/definitions/CommentList"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Publish a comment of the blog",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "query",
+            "description": "Publish message",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the comment list of the blog",
+            "schema": {
+              "$ref": "#/definitions/CommentList"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "homepage/blogs/:blogId/comments/:commentId": {
+      "post": {
+        "summary": "Reply the comment",
+        "parameters": [
+          {
+            "name": "message",
+            "in": "query",
+            "description": "Reply message",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the comment list of the blog",
+            "schema": {
+              "$ref": "#/definitions/CommentList"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete the personal comment",
+        "tags": [
+          "Home Page"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return success when delete the personal comment successfully",
+            "schema": {
+              "$ref": "#/definitions/Success"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CommentList": {
+      "type": "object",
+      "properties": {
+        "blogId": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Comment"
+          }
+        }
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "replyUserName": {
+          "type": "string"
+        },
+        "replyUserId": {
+          "type": "string"
+        },
+        "createAt": {
+          "type": "string"
+        }
+      }
+    },
+    "HomePageBlogList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/HomePageBlog"
+      }
+    },
+    "HomePageBlog": {
+      "type": "object",
+      "properties": {
+        "blogId": {
+          "type": "string",
+          "description": "The id of blog"
+        },
+        "userImage": {
+          "type": "string",
+          "description": "The image of user"
+        },
+        "userName": {
+          "type": "string",
+          "description": "The user name of user"
+        },
+        "userId": {
+          "type": "string",
+          "description": "The user id of user"
+        },
+        "blogTitle": {
+          "type": "string",
+          "description": "The title of blog"
+        },
+        "blogContent": {
+          "type": "string",
+          "description": "The content of blog"
+        },
+        "createAt": {
+          "type": "string",
+          "description": "The create date of blog"
+        },
+        "likes": {
+          "type": "object",
+          "properties": {
+            "liked": {
+              "type": "string",
+              "description": "true or false"
+            },
+            "likesNumber": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of likes"
+            }
+          }
+        },
+        "comments": {
+          "type": "object",
+          "properties": {
+            "commentId": {
+              "type": "string",
+              "description": "The id of comment of blog"
+            },
+            "commentNo": {
+              "type": "integer",
+              "format": "int32",
+              "description": "The number of comment of blog"
+            }
+          }
+        }
+      }
+    },
+    "UserProfile": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "First name of the Uber user."
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Last name of the Uber user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the Uber user"
+        },
+        "userImage": {
+          "type": "string",
+          "description": "Image URL of the Uber user."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Promo code of the Uber user."
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    },
+    "Success": {
+      "type": "object",
+      "properties": {
+        "resultType": {
+          "type": "string"
+        },
+        "resultMsg": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
