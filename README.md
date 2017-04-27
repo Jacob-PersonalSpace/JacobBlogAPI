@@ -1,2 +1,7 @@
-# JacobBlogAPI
-API for JacobBlog
+# yarn install
+
+# yarn start
+
+# yarn build
+
+# yarn server
